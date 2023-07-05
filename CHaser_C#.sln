@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CHaser_C#", "CHaser_C#\CHaser_C#.csproj", "{E92CF10D-2FCD-432F-A70F-0988EA91E796}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E92CF10D-2FCD-432F-A70F-0988EA91E796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E92CF10D-2FCD-432F-A70F-0988EA91E796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E92CF10D-2FCD-432F-A70F-0988EA91E796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E92CF10D-2FCD-432F-A70F-0988EA91E796}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CBC459CF-9110-44C3-9FF2-828E41111863}
+	EndGlobalSection
+EndGlobal
