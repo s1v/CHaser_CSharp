@@ -21,7 +21,7 @@ public class Client
     }
 
     /// <summary>
-    /// ターンのはじめに実⾏する。
+    /// 周囲の情報を取得します。必ずターンのはじめに実⾏必要があります。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
     public string GetReady() { return Order(OrderCode.GetReady); }
