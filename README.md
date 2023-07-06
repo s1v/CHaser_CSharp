@@ -9,12 +9,7 @@
 バグなどを発見した場合はGitHubの[Issue](https://github.com/s1v/CHaser_CSharp/issues)からお知らせください。
 
 ## コマンドライン引数一覧
-クライアント起動用バッチファイル作成時に使用できるコマンドライン引数
-- `ip:` 接続先のIPアドレスを指定する。
-- `port:`接続先のポート番号を指定する。
-- `name:`接続時の表示名を指定する。
-
-`/batch/sample.bat`にサンプルがあります。
+[Wiki](https://github.com/s1v/CHaser_CSharp/wiki/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E5%BC%95%E6%95%B0%E4%B8%80%E8%A6%A7)参照
 
 ## 始め方
 [Wiki](https://github.com/s1v/CHaser_CSharp/wiki/%E5%A7%8B%E3%82%81%E6%96%B9)参照
