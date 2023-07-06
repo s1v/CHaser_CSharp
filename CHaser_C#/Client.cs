@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 
@@ -16,28 +17,52 @@ public class Client
         this.port = port;
         this.name = name;
 
-        ConnectSHaserServer();
+        ConnectCHaserServer();
     }
 
     /// <summary>
     /// CHaserサーバーに接続する
     /// </summary>
-    private void ConnectSHaserServer()
+    private void ConnectCHaserServer()
     {
         //接続
         socketClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         socketClient.Connect(new IPEndPoint(IPAddress.Parse(ip), port));
 
         //クライアント情報送信
-        SendToCHaserServer($"{name}\r\n");
+        Send($"{name}\r\n");
     }
 
     /// <summary>
-    /// CHaserサーバーへメッセージを送信する
+    /// CHaserサーバーへ文字列を送信する
     /// </summary>
-    /// <param name="sendMessage">送信するメッセージ</param>
-    private void SendToCHaserServer(string sendMessage)
+    /// <param name="sendString">送信する文字列</param>
+    private void Send(string sendString)
     {
-        socketClient.Send(Encoding.UTF8.GetBytes(sendMessage));
+        socketClient.Send(Encoding.UTF8.GetBytes(sendString));
+    }
+
+    private string Receive()
+    {
+        byte[] data = new byte[4096];
+        socketClient.Receive(data, data.Length, SocketFlags.None);
+        Array.Reverse(data);
+        return Encoding.UTF8.GetString(data.Take(11).ToArray());
+    }
+
+    private void Order(string orderString, bool isReady)
+    {
+        if (isReady)
+        {
+            //接続確認
+            if (!Receive().Contains("@"))
+            {
+                //ダメだった場合
+                Console.WriteLine("Connection Failed.");
+            }
+
+            Send($"{orderString}\r\n");
+            Receive();
+        }
     }
 }

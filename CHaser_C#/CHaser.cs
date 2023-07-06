@@ -1,14 +1,7 @@
-﻿internal class CHaser
+﻿public static class CHaser
 {
-    private Client client;
-
-    public CHaser(Client client) { this.client = client; }
-
-    public void Run()
+    public static void Run(Client client)
     {
-        while (true)
-        {
-
-        }
+        //ここにコードを書きます。
     }
 }
