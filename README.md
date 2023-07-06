@@ -6,7 +6,7 @@
 # 免責事項
 作者は本ライブラリに起因する損害の一切責任を負いません。
 
-バグなどを発見した場合はGitHubのIssueからお知らせください。
+バグなどを発見した場合はGitHubの[Issue](https://github.com/s1v/CHaser_CSharp/issues)からお知らせください。
 
 # 使い方
 
