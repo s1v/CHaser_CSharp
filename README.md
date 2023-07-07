@@ -3,7 +3,7 @@ CHaserクライアントのC#テンプレートです。
 
 広く使われているらしい C# のライブラリがどこにも見当たらない`>_<`ので、
 
-広く使われている [Python のライブラリ](https://github.com/ueki-kazuki/chaser-python)に合わせて作りました。 
+広く使われている [Python のライブラリ](https://github.com/tomio2480/chaser-python)に合わせて作りました。 
 
 ## 免責事項
 作者は本テンプレート・ライブラリに起因する損害の一切責任を負いません。
