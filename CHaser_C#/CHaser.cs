@@ -5,25 +5,29 @@
         //ここにコードを書きます。
         while (true)
         {
-            string value = client.GetReady();
-            value = client.SearchLeft();
+            client.GetReady();
+            client.SearchUp();
 
-            value = client.GetReady();
+            client.GetReady();
+            client.SearchLeft();
 
-            if (value[7] != 2)
-            {
-                value = client.WalkDown();
-            }
-            else
-            {
-                value = client.PutUp();
-            }
+            client.GetReady();
+            client.SearchDown();
 
-            value = client.GetReady();
-            value = client.LookUp();
+            client.GetReady();
+            client.SearchRight();
 
-            value = client.GetReady();
-            value = client.PutRight();
+            client.GetReady();
+            client.LookUp();
+
+            client.GetReady();
+            client.LookLeft();
+
+            client.GetReady();
+            client.LookDown();
+
+            client.GetReady();
+            client.LookRight();
         }
     }
 }

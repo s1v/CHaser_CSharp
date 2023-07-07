@@ -1,5 +1,5 @@
-﻿internal static class ControlCode
+﻿public static class ControlCode
 {
-    public const string TurnStart = "@";
-    public const string TurnEnd = "#";
+    public const char TurnStart = '@';
+    public const char TurnEnd = '#';
 }

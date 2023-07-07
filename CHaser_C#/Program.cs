@@ -22,6 +22,7 @@ if (ip is null)
         ip = Console.ReadLine();
     } while (String.IsNullOrEmpty(ip) || !Regex.IsMatch(ip, @"[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"));
 }
+else Console.WriteLine($"サーバーIPアドレス: {ip}");
 
 if (port is null)
 {
@@ -33,6 +34,7 @@ if (port is null)
         port = Console.ReadLine();
     } while (String.IsNullOrEmpty(port));
 }
+else Console.WriteLine($"ポート番号: {port}");
 
 if (name is null)
 {
@@ -44,6 +46,32 @@ if (name is null)
         name = Console.ReadLine();
     } while (String.IsNullOrEmpty(name));
 }
+else Console.WriteLine($"表示名: {name}\n");
 
-//CHaserクライアントを初期化し、プログラムを実行
-CHaser.Run(new Client(ip, int.Parse(port), name));
+try
+{
+    //CHaserクライアントを初期化して、プログラムを実行
+    CHaser.Run(new Client(ip, int.Parse(port), name));
+}
+catch(CHaserClientException e)
+{
+    //意図したExceptionの場合
+    Console.WriteLine(e.Message);
+    Console.ReadLine();
+}
+catch(Exception e)
+{
+    //意図せぬExceptionの場合
+    Console.WriteLine(
+        $"Occurred critical error.\n" +
+        $"Plz report to GitHub Issues: https://github.com/s1v/CHaser_CSharp/issues\n" +
+        $"****************************\n" +
+        $"ErrorMessage:\n" +
+        $"{e.Message}\n" +
+        $"StackTrace:\n" +
+        $"{e.StackTrace}\n" +
+        $"****************************\n" +
+        $"(Press \"Enter\" to exit)"
+    );
+    Console.ReadLine();
+}

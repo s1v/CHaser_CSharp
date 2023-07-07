@@ -9,6 +9,7 @@ public class Client
     private string name { get; init; }
 
     private Socket socketClient;
+    private int currentTurn = 1;
 
     public Client(string ip, int port, string name)
     {
@@ -16,115 +17,115 @@ public class Client
         this.port = port;
         this.name = name;
 
-        ConnectCHaserServer();
+        Connect(); //サーバー接続
     }
 
     /// <summary>
     /// 周囲の情報を取得します。必ずターンのはじめに実⾏必要があります。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
-    public string GetReady() { return Order(OrderCode.GetReady); }
+    public FieldObject[] GetReady() => Order(OrderName.GetReady);
 
     /// <summary>
     /// 上に移動します。
     /// </summary>
     /// <returns></returns>
-    public string WalkUp() { return Order(OrderCode.WalkUp); }
+    public FieldObject[] WalkUp() => Order(OrderName.WalkUp);
 
     /// <summary>
     /// 下に移動します。
     /// </summary>
     /// <returns></returns>
-    public string WalkDown() { return Order(OrderCode.WalkDown); }
+    public FieldObject[] WalkDown() => Order(OrderName.WalkDown);
 
     /// <summary>
     /// 左に移動します。
     /// </summary>
     /// <returns></returns>
-    public string WalkLeft() { return Order(OrderCode.WalkLeft); }
+    public FieldObject[] WalkLeft() => Order(OrderName.WalkLeft);
 
     /// <summary>
     /// 右に移動します。
     /// </summary>
     /// <returns></returns>
-    public string WalkRight() { return Order(OrderCode.WalkRight); }
+    public FieldObject[] WalkRight() => Order(OrderName.WalkRight);
 
     /// <summary>
     /// 正⽅形状に上9マスの情報を取得します。
     /// </summary>
     /// <returns>上9マスの情報(正⽅形状)</returns>
-    public string LookUp() { return Order(OrderCode.LookUp); }
+    public FieldObject[] LookUp() => Order(OrderName.LookUp);
 
     /// <summary>
     /// 正⽅形状に下9マスの情報を取得します。
     /// </summary>
     /// <returns>下9マスの情報(正⽅形状)</returns>
-    public string LookDown() { return Order(OrderCode.LookDown); }
+    public FieldObject[] LookDown() => Order(OrderName.LookDown);
 
     /// <summary>
     /// 正⽅形状に左9マスの情報を取得します。
     /// </summary>
     /// <returns>左9マスの情報(正⽅形状)</returns>
-    public string LookLeft() { return Order(OrderCode.LookLeft); }
+    public FieldObject[] LookLeft() => Order(OrderName.LookLeft);
 
     /// <summary>
     /// 正⽅形状に右9マスの情報を取得します。
     /// </summary>
     /// <returns>右9マスの情報(正⽅形状)</returns>
-    public string LookRight() { return Order(OrderCode.LookRight); }
+    public FieldObject[] LookRight() => Order(OrderName.LookRight);
 
     /// <summary>
     /// 直線状に上9マスの情報を取得します。
     /// </summary>
     /// <returns>上9マスの情報(直線状)</returns>
-    public string SearchUp() { return Order(OrderCode.SearchUp); }
+    public FieldObject[] SearchUp() => Order(OrderName.SearchUp);
 
     /// <summary>
     /// 直線状に下9マスの情報を取得します。
     /// </summary>
     /// <returns>下9マスの情報(直線状)</returns>
-    public string SearchDown() { return Order(OrderCode.SearchDown); }
+    public FieldObject[] SearchDown() => Order(OrderName.SearchDown);
 
     /// <summary>
     /// 直線状に左9マスの情報を取得します。
     /// </summary>
     /// <returns>左9マスの情報(直線状)</returns>
-    public string SearchLeft() { return Order(OrderCode.SearchLeft); }
+    public FieldObject[] SearchLeft() => Order(OrderName.SearchLeft);
 
     /// <summary>
     /// 直線状に右9マスの情報を取得します。
     /// </summary>
     /// <returns>右9マスの情報(直線状)</returns>
-    public string SearchRight() { return Order(OrderCode.SearchRight); }
+    public FieldObject[] SearchRight() => Order(OrderName.SearchRight);
 
     /// <summary>
     /// 上にブロックを置きます。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
-    public string PutUp() { return Order(OrderCode.PutUp); }
+    public FieldObject[] PutUp() => Order(OrderName.PutUp);
 
     /// <summary>
     /// 下にブロックを置きます。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
-    public string PutDown() { return Order(OrderCode.PutDown); }
+    public FieldObject[] PutDown() => Order(OrderName.PutDown);
 
     /// <summary>
     /// 左にブロックを置きます。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
-    public string PutLeft() { return Order(OrderCode.PutLeft); }
+    public FieldObject[] PutLeft() => Order(OrderName.PutLeft);
 
     /// <summary>
     /// 右にブロックを置きます。
     /// </summary>
     /// <returns>周囲9マスの情報</returns>
-    public string PutRight() { return Order(OrderCode.PutRight); }
+    public FieldObject[] PutRight() => Order(OrderName.PutRight);
 
     /// <summary>
     /// CHaserサーバーに接続する
     /// </summary>
-    private void ConnectCHaserServer()
+    private void Connect()
     {
         try
         {
@@ -135,21 +136,27 @@ public class Client
             //クライアント情報送信
             Send($"{name}\r\n");
 
-            Console.WriteLine("Connected.");
+            Console.WriteLine(
+                "Connection completed.\n" +
+                "Plz wait game start...\n"
+            );
         }
-        catch (SocketException e)
+        catch (SocketException)
         {
             //接続失敗時
-            Console.WriteLine("Failed to connect CHaser server.\n(Press \"Enter\" to retry)");
+            Console.WriteLine(
+                "Failed to connect CHaser server.\n" +
+                "(Press \"Enter\" to retry)"
+            );
             Console.ReadLine();
-            ConnectCHaserServer();
+            Connect(); //リトライ(再帰)
         }
     }
 
     /// <summary>
-    /// サーバー接続用Socketを閉じる
+    /// サーバー接続を閉じる
     /// </summary>
-    private void ConnectionClose()
+    private void Close()
     {
         socketClient.Shutdown(SocketShutdown.Both);
         socketClient.Close();
@@ -168,12 +175,22 @@ public class Client
     /// CHaserサーバーから文字列を受信する
     /// </summary>
     /// <returns>受信した文字列</returns>
-    private string Receive()
+    private char[] Receive()
     {
-        byte[] bytes = new byte[4096];
-        int response = socketClient.Receive(bytes);
-        string decodedText = Encoding.UTF8.GetString(bytes, 0, response); //デバック用
-        return decodedText;
+        try
+        {
+            byte[] bytes = new byte[4096];
+            int response = socketClient.Receive(bytes);
+            return Encoding.UTF8.GetString(bytes, 0, response).ToCharArray();
+        }
+        catch (SocketException)
+        {
+            //接続失敗時
+            throw new CHaserClientException(
+                "Connection terminated!\n" +
+                "(Press \"Enter\" to exit)"
+            );
+        }
     }
 
     /// <summary>
@@ -182,37 +199,54 @@ public class Client
     /// <param name="orderString">送信する命令</param>
     /// <returns>受信した情報</returns>
     /// <exception cref="Exception"></exception>
-    private string Order(string orderString)
+    private FieldObject[] Order(OrderName order)
     {
-        if (orderString == OrderCode.GetReady)
+        try
         {
-            //接続確認
-            if (!Receive().Contains(ControlCode.TurnStart))
+            if (order == OrderName.GetReady)
             {
-                //ダメだった場合
-                Console.WriteLine("Connection failed.");
+                if (!(Receive()[0] == ControlCode.TurnStart)) //接続確認
+                {
+                    //ダメだった場合
+                    throw new CHaserClientException(
+                        "Connection terminated!\n" +
+                        "(Press \"Enter\" to exit)"
+                    );
+                }
+            }
+
+            //サーバーへ命令送信
+            Send($"{((OrderCode)order).ToString()}\r\n");
+            //命令のコンソール出力
+            Console.WriteLine($"Turn{++currentTurn / 2}: {order.ToString()}{(currentTurn % 2 == 1 ? "\n" : null)}");
+
+            //サーバーから情報受信
+            FieldObject[] response = Receive().Take(10).Select(chara => (FieldObject)(int.Parse(chara.ToString()))).ToArray();
+
+            if (order != OrderName.GetReady)
+            {
+                Send($"{ControlCode.TurnEnd}\r\n");
+            }
+
+            switch ((GameStatus)response[0])
+            {
+                case GameStatus.Progress:
+                    return response.Skip(1).Take(9).ToArray();
+
+                case GameStatus.Finished:
+                    throw new CHaserClientException(
+                        "Game Set!!\n" +
+                        "(Press \"Enter\" to exit)"
+                    );
+
+                default:
+                    throw new Exception("Response Error.");
             }
         }
-
-        Send($"{orderString}\r\n");
-        string response = Receive();
-
-        if (orderString != OrderCode.GetReady)
+        catch
         {
-            Send($"{ControlCode.TurnEnd}\r\n");
-        }
-
-        switch (response[0])
-        {
-            case GameStatus.Progress:
-                return response.Substring(1, 10);
-
-            case GameStatus.Finished:
-                ConnectionClose();
-                throw new Exception("Game Set!!");
-
-            default:
-                throw new Exception("Response Error.");
+            Close(); //接続は必ず閉じる
+            throw; //Exceptionを受け流す
         }
     }
 }
