@@ -2,7 +2,7 @@
   "profiles": {
     "CHaser_C#": {
       "commandName": "Project",
-      "commandLineArgs": "ip:192.168.10.104 port:2010 name:HotBot"
+      "commandLineArgs": "port:2010 name:HotBot"
     }
   }
 }

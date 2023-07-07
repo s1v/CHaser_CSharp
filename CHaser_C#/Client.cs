@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Net.Mail;
 using System.Net.Sockets;
 using System.Text;
 
@@ -148,6 +147,15 @@ public class Client
     }
 
     /// <summary>
+    /// サーバー接続用Socketを閉じる
+    /// </summary>
+    private void ConnectionClose()
+    {
+        socketClient.Shutdown(SocketShutdown.Both);
+        socketClient.Close();
+    }
+
+    /// <summary>
     /// CHaserサーバーへ文字列を送信する
     /// </summary>
     /// <param name="sendString">送信する文字列</param>
@@ -162,12 +170,18 @@ public class Client
     /// <returns>受信した文字列</returns>
     private string Receive()
     {
-        byte[] data = new byte[4096];
-        socketClient.Receive(data, data.Length, SocketFlags.None);
-        Array.Reverse(data);
-        return Encoding.UTF8.GetString(data.Take(11).ToArray());
+        byte[] bytes = new byte[4096];
+        int response = socketClient.Receive(bytes);
+        string decodedText = Encoding.UTF8.GetString(bytes, 0, response); //デバック用
+        return decodedText;
     }
 
+    /// <summary>
+    /// CHaserサーバーと通信する
+    /// </summary>
+    /// <param name="orderString">送信する命令</param>
+    /// <returns>受信した情報</returns>
+    /// <exception cref="Exception"></exception>
     private string Order(string orderString)
     {
         if (orderString == OrderCode.GetReady)
@@ -194,6 +208,7 @@ public class Client
                 return response.Substring(1, 10);
 
             case GameStatus.Finished:
+                ConnectionClose();
                 throw new Exception("Game Set!!");
 
             default:
