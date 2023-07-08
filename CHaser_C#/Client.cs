@@ -218,7 +218,8 @@ public class Client
             //サーバーへ命令送信
             Send($"{((OrderCode)order).ToString()}\r\n");
             //命令のコンソール出力
-            Console.WriteLine($"Turn{++currentTurn / 2}: {order.ToString()}{(currentTurn % 2 == 1 ? "\n" : null)}");
+            if (++currentTurn % 2 == 0) Console.WriteLine("************************************\n");
+            Console.WriteLine($"Turn{currentTurn / 2}: {order.ToString()}");
 
             //サーバーから情報受信
             FieldObject[] response = Receive().Take(10).Select(chara => (FieldObject)(int.Parse(chara.ToString()))).ToArray();
@@ -231,7 +232,9 @@ public class Client
             switch ((GameStatus)response[0])
             {
                 case GameStatus.Progress:
-                    return response.Skip(1).Take(9).ToArray();
+                    response = response.Skip(1).Take(9).ToArray();
+                    WriteFieldInfo(response, order);
+                    return response;
 
                 case GameStatus.Finished:
                     throw new CHaserClientException(
@@ -248,5 +251,34 @@ public class Client
             Close(); //接続は必ず閉じる
             throw; //Exceptionを受け流す
         }
+    }
+
+    private void WriteFieldInfo(FieldObject[] infos, OrderName order)
+    {
+        int i = 0;
+        foreach (FieldObject info in infos)
+        {
+            switch (info)
+            {
+                case FieldObject.none:
+                    Console.Write("[　]");
+                    break;
+                case FieldObject.block:
+                    Console.Write("[□]");
+                    break;
+                case FieldObject.item:
+                    Console.Write("[☆]");
+                    break;
+                case FieldObject.chara:
+                    Console.Write("[×]");
+                    break;
+            }
+            if (++i % 3 == 0 && order is not (OrderName.SearchDown or OrderName.SearchUp or OrderName.SearchLeft or OrderName.SearchRight))
+            {
+                Console.WriteLine();
+            }
+            else if (i % 9 == 0) Console.WriteLine();
+        }
+        Console.WriteLine();
     }
 }
