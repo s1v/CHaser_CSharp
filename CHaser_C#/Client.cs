@@ -11,6 +11,12 @@ public class Client
     private Socket socketClient;
     private int currentTurn = 1;
 
+    /// <summary>
+    /// CHaser接続クライアント
+    /// </summary>
+    /// <param name="ip">接続先IPアドレス</param>
+    /// <param name="port">接続先ポート番号</param>
+    /// <param name="name">表示名</param>
     public Client(string ip, int port, string name)
     {
         this.ip = ip;
