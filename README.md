@@ -1,10 +1,13 @@
 ## CHaser_C#
 CHaserクライアントのC#テンプレートです。  
 広く使われているらしい C# のライブラリがどこにも見当たらない`>_<`ので、  
-広く使われている [Python のライブラリ](https://github.com/tomio2480/chaser-python)に合わせて作りました。   
+広く使われている [Python のライブラリ](https://github.com/tomio2480/chaser-python)に合わせて作りました。  
+
 が、エンジニアの性が出てしまい、ちょっとだけ機能追加してしまいました。  
 接続リトライ機能や、コンソールへのログ出力機能などを付け足しています。  
-また、取得するフィールド情報は数値ではなく列挙体`FieldObject`の値を格納するようになっています。  
+
+また、取得するフィールド情報は数値ではなく列挙体`FieldObject`の値を格納するようになっています。 
+
 ![image](https://github.com/s1v/CHaser_CSharp/assets/20382337/15c43b9a-f833-44bc-a575-ef773011a853)
 
 ## 免責事項
