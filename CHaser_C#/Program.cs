@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CHaserConnector.exception;
+using System.Text.RegularExpressions;
 
 string? ip = null;
 string? port = null;
@@ -48,23 +49,41 @@ if (name is null)
 }
 else Console.WriteLine($"表示名: {name}\n");
 
+//コネクターの生成
+Connector connector = new Connector(ip, int.Parse(port), name);
+
+while (true) //接続に成功するまでリトライする
+{
+    try
+    {
+        connector.Connect(); //サーバーへ接続
+        break; //成功したら脱ループ
+    }
+    catch (ConnectException)
+    {
+        //リトライ表示
+        Console.WriteLine("(Press \"Enter\" to retry)");
+        Console.ReadLine();
+    }
+}
+
 try
 {
-    //CHaserクライアントを初期化して、プログラムを実行
-    CHaser.Run(new Client(ip, int.Parse(port), name));
+    Client.Run(connector); //Clientの実行
 }
-catch(CHaserClientException e)
+catch (CHaserConnectorException e)
 {
     //意図したExceptionの場合
     Console.WriteLine(e.Message);
+    Console.WriteLine("(Press \"Enter\" to exit)");
     Console.ReadLine();
 }
-catch(Exception e)
+catch (Exception e)
 {
     //意図せぬExceptionの場合
     Console.WriteLine(
         $"Occurred critical error.\n" +
-        $"Plz report to GitHub Issues: https://github.com/s1v/CHaser_CSharp/issues\n" +
+        $"Plz report to GitHub Issues: https://github.com/s1v/CHaser_Connector/issues\n" +
         $"****************************\n" +
         $"ErrorMessage:\n" +
         $"{e.Message}\n" +
@@ -74,4 +93,8 @@ catch(Exception e)
         $"(Press \"Enter\" to exit)"
     );
     Console.ReadLine();
+}
+finally
+{
+    connector.Dispose();
 }
