@@ -14,4 +14,4 @@ CHaserクライアントのC#テンプレートです。
 [Wiki](https://github.com/s1v/CHaser_CSharp/wiki/%E5%A7%8B%E3%82%81%E6%96%B9)参照
 
 ## リファレンス
-[Wiki](https://github.com/s1v/CHaser_CSharp/wiki/CHaser_C%23-%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9)参照
+[Wiki](https://github.com/s1v/CHaser_CSharp_Template/wiki/CHaserConnector-%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9%E3%83%9E%E3%83%8B%E3%83%A5%E3%82%A2%E3%83%AB)参照
