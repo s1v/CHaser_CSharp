@@ -8,9 +8,9 @@ string? name = null;
 if (args.Length > 0)
 {
     //コマンドライン引数からセット
-    ip = args.SingleOrDefault(arg => arg.Contains("ip:"))?.Replace("ip:", "");
-    port = args.SingleOrDefault(arg => arg.Contains("port:"))?.Replace("port:", "");
-    name = args.SingleOrDefault(arg => arg.Contains("name:"))?.Replace("name:", "");
+    ip = args.FirstOrDefault(arg => arg.Contains("ip:"))?.Replace("ip:", "");
+    port = args.FirstOrDefault(arg => arg.Contains("port:"))?.Replace("port:", "");
+    name = args.FirstOrDefault(arg => arg.Contains("name:"))?.Replace("name:", "");
 }
 
 if (ip is null || !Regex.IsMatch(ip, @"[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"))
