@@ -13,9 +13,9 @@ if (args.Length > 0)
     name = args.SingleOrDefault(arg => arg.Contains("name:"))?.Replace("name:", "");
 }
 
-if (ip is null)
+if (ip is null || !Regex.IsMatch(ip, @"[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"))
 {
-    //コマンドライン引数からセットしていない場合
+    //コマンドライン引数からセットしていないもしくは正しくない場合
     do
     {
         //正しく入力していない間繰り返す
