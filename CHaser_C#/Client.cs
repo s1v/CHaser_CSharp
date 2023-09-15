@@ -1,6 +1,13 @@
-﻿public static class Client
+﻿public class Client
 {
-    public static void Run(Connector connector)
+    private Connector connector { get; init; }
+
+    public Client(Connector connector)
+    {
+        this.connector = connector;
+    }
+
+    public void Run()
     {
         //ここにコードを書きます。
         while (true)

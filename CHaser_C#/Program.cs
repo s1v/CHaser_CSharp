@@ -69,7 +69,8 @@ while (true) //接続に成功するまでリトライする
 
 try
 {
-    Client.Run(connector); //Clientの実行
+    Client client = new Client(connector); //Clientの生成
+    client.Run(); //Clientの実行
 }
 catch (CHaserConnectorException e)
 {
