@@ -1,6 +1,6 @@
 ## CHaser_C#
 U-16プログラミングコンテストで用いるCHaserクライアントのC#テンプレートです。  
-[C#クライアント向け通信ライブラリ](https://github.com/s1v/CHaser_Connector)を組み込んで最低限の実装をしてあります。  
+[C#クライアント向け通信ライブラリ](https://github.com/s1v/CHaser_Connector)を組み込んで最低限の実装を済ませています。  
 `Client.cs`にCHaserのコードを書くだけで始められます。
 
 ## 免責事項
